@@ -1,0 +1,30 @@
+{
+  "name": "creatuity/magento2-cron-runner",
+  "description": "Creatuity Cron Runner",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Creatuity Corp",
+      "homepage": "http://creatuity.com/"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Creatuity\\CronRunner\\": ""
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Magento\\Framework\\": "Test/FrameworkMocks"
+    }
+  },
+  "require": {
+    "creatuity/base": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.5.0"
+  }
+}

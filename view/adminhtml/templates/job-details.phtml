@@ -1,0 +1,126 @@
+<div class="entry-edit form-inline">
+    <fieldset class="fieldset admin__fieldset">
+        <legend class="admin__legend legend">
+            <span>Job Info</span>
+        </legend>
+
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>Group Id</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    <?php echo $block->getJob()->getGroupId(); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>Job Name</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    <?php echo $block->getJob()->getJobName(); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>Schedule</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    &nbsp;<?php echo $block->getJob()->getSchedule(); ?>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset admin__fieldset">
+        <legend class="admin__legend legend">
+            <span>Last Execution</span>
+        </legend>
+
+        <?php foreach ([
+            'status' => 'Status',
+            'pid' => 'PID',
+            'return_code' => 'return code',
+            'started_at' => 'start',
+            'finished_at' => 'finish',
+            'error' => 'Error',
+            'output' => 'Output tail'
+        ] as $field => $label): ?>
+            <div class="admin__field field">
+                <label class="label admin__field-label"><span><?php echo $label; ?></span></label>
+                <div class="admin__field-control control">
+                    <div class=" input-text admin__control-text">
+                        &nbsp;<?php echo $block->getJob()->getData($field); ?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>duration</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    &nbsp;<?php echo $block->getJob()->formatTime('stats_last_duration'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>memory used</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    &nbsp;<?php echo $block->getJob()->formatMemory('stats_last_memory'); ?>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+
+    <fieldset class="fieldset admin__fieldset">
+        <legend class="admin__legend legend">
+            <span>Job Stats</span>
+        </legend>
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>starts counter</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    &nbsp;<?php echo $block->getJob()->getData('stats_started'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>success counter</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    &nbsp;<?php echo $block->getJob()->getData('stats_finished_ok'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>failures counter</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    &nbsp;<?php echo $block->getJob()->getData('stats_finished_error'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>avg duration</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    &nbsp;<?php echo $block->getJob()->formatTime('stats_avg_duration'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="admin__field field">
+            <label class="label admin__field-label"><span>avg memory used</span></label>
+            <div class="admin__field-control control">
+                <div class=" input-text admin__control-text">
+                    &nbsp;<?php echo $block->getJob()->formatMemory('stats_avg_memory'); ?>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+</div>
+
