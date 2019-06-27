@@ -10,7 +10,7 @@
         <referenceContainer name="left">
             <block class="Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit\Tabs" name="creatuity_cron_jobs_edit_tabs">
 
-                <block class="Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit\Tab\Main" name="creatuity_cron_jobs_edit_tab_main" template="Creatuity_Cron::job-details.phtml"/>
+                <block class="Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit\Tab\Main" name="creatuity_cron_jobs_edit_tab_main" template="Creatuity_CronRunner::job-details.phtml"/>
 
                 <action method="addTab">
                     <argument name="name" xsi:type="string">main_section</argument>

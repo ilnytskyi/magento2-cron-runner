@@ -38,7 +38,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
     {
         $this->_objectId = 'id';
         $this->_controller = 'adminhtml_jobs';
-        $this->_blockGroup = 'Creatuity_Cron';
+        $this->_blockGroup = 'Creatuity_CronRunner';
 
         parent::_construct();
 

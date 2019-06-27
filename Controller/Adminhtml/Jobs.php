@@ -55,7 +55,7 @@ abstract class Jobs extends \Magento\Backend\App\Action
     protected function _initAction()
     {
         $this->_view->loadLayout();
-        $this->_setActiveMenu('Creatuity_Cron::jobs')->_addBreadcrumb(__('Jobs'), __('Jobs'));
+        $this->_setActiveMenu('Creatuity_CronRunner::jobs')->_addBreadcrumb(__('Jobs'), __('Jobs'));
         return $this;
     }
 
@@ -66,6 +66,6 @@ abstract class Jobs extends \Magento\Backend\App\Action
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Creatuity_Cron::jobs');
+        return $this->_authorization->isAllowed('Creatuity_CronRunner::jobs');
     }
 }

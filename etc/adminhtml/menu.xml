@@ -6,7 +6,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Creatuity_Cron::base" title="Creatuity Cron" module="Creatuity_Base" sortOrder="10" parent="Magento_Backend::system" resource="Creatuity_Cron::jobs"/>
-        <add id="Creatuity_Cron::cron_manager" title="Manage Cron Jobs" module="Creatuity_Cron" sortOrder="20" parent="Creatuity_Cron::base" action="creatuity_cron/jobs/" resource="Creatuity_Cron::jobs"/>
+        <add id="Creatuity_CronRunner::base" title="Creatuity Cron" module="Creatuity_Base" sortOrder="10" parent="Magento_Backend::system" resource="Creatuity_CronRunner::jobs"/>
+        <add id="Creatuity_CronRunner::cron_manager" title="Manage Cron Jobs" module="Creatuity_CronRunner" sortOrder="20" parent="Creatuity_CronRunner::base" action="creatuity_cron/jobs/" resource="Creatuity_CronRunner::jobs"/>
     </menu>
 </config>
