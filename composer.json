@@ -6,6 +6,10 @@
     {
       "name": "Creatuity Corp",
       "homepage": "http://creatuity.com/"
+    },
+    {
+      "name": "Franciszek Wawrzak",
+      "homepage": "http://francio.pl/"
     }
   ],
   "autoload": {
@@ -22,7 +26,6 @@
     }
   },
   "require": {
-    "creatuity/base2": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "~6.5.0"
