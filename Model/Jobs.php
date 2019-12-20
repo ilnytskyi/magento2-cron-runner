@@ -34,24 +34,6 @@ class Jobs extends \Magento\Framework\Model\AbstractModel
         $this->_init('Fsw\CronRunner\Model\Resource\Jobs');
     }
 
-    public function clearStats()
-    {
-        $this->resourceConnection->getConnection()->update('fsw_cron', [
-            'stats_started' => new \Zend_Db_Expr(0),
-            'stats_finished_error' => new \Zend_Db_Expr(0),
-            'stats_finished_ok' => new \Zend_Db_Expr(0),
-            'stats_last_duration' => new \Zend_Db_Expr(0),
-            'stats_avg_duration' => new \Zend_Db_Expr( 0),
-            'stats_last_memory' => new \Zend_Db_Expr(0),
-            'stats_avg_memory' => new \Zend_Db_Expr( 0),
-        ], [
-            'group_id = ?' => $this->getGroupId(),
-            'job_name = ?' => $this->getJobName()
-        ]);
-
-        $this->load($this->getId());
-    }
-
     public function formatTime($key)
     {
         $ms = $this->getData($key);

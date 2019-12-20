@@ -67,6 +67,24 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
             ],
             10
         );
+
+        $this->buttonList->add(
+            'force_run_now',
+            [
+                'class' => 'save',
+                'label' => __('Run Now'),
+                'data_attribute' => [
+                    'mage-init' => ['button' => [
+                        'event' => 'saveAndContinueEdit',
+                        'target' => '#edit_form',
+                        'eventData' => ['action' => ['args' => ['force_run_now' => '1']]],
+                    ]],
+                ]
+
+            ],
+            10
+        );
+
     }
 
     /**

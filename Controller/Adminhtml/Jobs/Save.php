@@ -2,6 +2,8 @@
 
 namespace Fsw\CronRunner\Controller\Adminhtml\Jobs;
 
+use Fsw\CronRunner\Model\Jobs;
+
 class Save extends \Fsw\CronRunner\Controller\Adminhtml\Jobs
 {
     public function execute()
@@ -23,19 +25,35 @@ class Save extends \Fsw\CronRunner\Controller\Adminhtml\Jobs
                         throw new \Magento\Framework\Exception\LocalizedException(__('The wrong job is specified.'));
                     }
                 }
-                $model->setData($data);
-                $model->setData('setting_enabled', !empty($data['setting_enabled']));
-
                 $session = $this->_objectManager->get('Magento\Backend\Model\Session');
-                $session->setPageData($model->getData());
 
-
-
+                /** @var $model Jobs */
                 if ($this->getRequest()->getParam('clear_stats')) {
-                    $model->clearStats();
-                    $id && $model->load($id);
+                    $model->setData([
+                        'id' => $id,
+                        'stats_started' => 0,
+                        'stats_finished_error' => 0,
+                        'stats_finished_ok' => 0,
+                        'stats_last_duration' => 0,
+                        'stats_avg_duration' => 0,
+                        'stats_last_memory' => 0,
+                        'stats_avg_memory' => 0,
+                    ]);
+                    $model->save();
                     $this->messageManager->addSuccess(__('Stats cleared'));
+                } elseif ($this->getRequest()->getParam('force_run_now')) {
+                    $model->setData([
+                        'id' => $id,
+                        'force_run_flag' => 1
+                    ]);
+                    $model->save();
+                    $this->messageManager->addSuccess(__('Job will be executed within 60s'));
                 } else {
+                    $model->setData($data);
+                    $model->setData('setting_enabled', !empty($data['setting_enabled']));
+
+                    $session->setPageData($model->getData());
+
                     $model->save();
                     $this->messageManager->addSuccess(__('You saved the job.'));
                 }

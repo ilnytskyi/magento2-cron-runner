@@ -133,6 +133,14 @@ class CronJob
     }
 
     /**
+     * @return bool
+     */
+    public function getForceRunFlag()
+    {
+        return $this->getRowData('force_run_flag') !== '0';
+    }
+
+    /**
      * @param $pid
      */
     public function markAsStarted($pid)
@@ -156,7 +164,8 @@ class CronJob
             'finished_at' => null,
             'error' => null,
             'output' => null,
-            'stats_started' => new Expression('stats_started + 1')
+            'stats_started' => new Expression('stats_started + 1'),
+            'force_run_flag' => 0
         ]);
         $this->resourceConnection->closeConnection();
     }
@@ -226,6 +235,10 @@ class CronJob
      */
     public function shouldBeExecuted(DateTime $at)
     {
+        if ($this->getForceRunFlag()) {
+            return true;
+        }
+
         if (!$this->isEnabled()) {
             return false;
         }
