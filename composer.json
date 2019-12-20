@@ -1,6 +1,6 @@
 {
-  "name": "creatuity/magento2-cron-runner",
-  "description": "Creatuity Cron Runner",
+  "name": "fsw/magento2-cron-runner",
+  "description": "Magento 2 Cron Runner",
   "version": "1.0.0",
   "authors": [
     {
@@ -17,7 +17,7 @@
       "registration.php"
     ],
     "psr-4": {
-      "Creatuity\\CronRunner\\": ""
+      "Fsw\\CronRunner\\": ""
     }
   },
   "autoload-dev": {

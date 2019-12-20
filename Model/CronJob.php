@@ -1,8 +1,8 @@
 <?php
 
-namespace Creatuity\CronRunner\Model;
+namespace Fsw\CronRunner\Model;
 
-use Creatuity\CronRunner\Model\Cron\Scheduler;
+use Fsw\CronRunner\Model\Cron\Scheduler;
 use DateTime;
 use Magento\Framework\App\ResourceConnection;
 use Zend\Db\Sql\Expression;
@@ -76,7 +76,7 @@ class CronJob
         if (!isset($this->row)) {
             $connection = $this->resourceConnection->getConnection();
             $this->row = $connection->fetchRow($connection->select()
-                ->from('creatuity_cron')
+                ->from('fsw_cron')
                 ->where('group_id = ?', $this->groupId)
                 ->where('job_name = ?', $this->jobName));
             $this->resourceConnection->closeConnection();
@@ -137,7 +137,7 @@ class CronJob
      */
     public function markAsStarted($pid)
     {
-        $this->resourceConnection->getConnection()->insertOnDuplicate('creatuity_cron', [
+        $this->resourceConnection->getConnection()->insertOnDuplicate('fsw_cron', [
             'group_id' => $this->groupId,
             'job_name' => $this->jobName,
             'schedule' => $this->schedule,
@@ -172,7 +172,7 @@ class CronJob
         $mem_kb = (int)$mem_kb;
 
         $now = (new DateTime())->format("Y-m-d H:i:s");
-        $this->resourceConnection->getConnection()->update('creatuity_cron', [
+        $this->resourceConnection->getConnection()->update('fsw_cron', [
             'status' => $ok ? self::STATUS_IDLE : self::STATUS_ERROR,
             'return_code' => $return_code,
             'finished_at' => $now,
@@ -197,7 +197,7 @@ class CronJob
      */
     public function setError($error)
     {
-        $this->resourceConnection->getConnection()->insertOnDuplicate('creatuity_cron', [
+        $this->resourceConnection->getConnection()->insertOnDuplicate('fsw_cron', [
             'group_id' => $this->groupId,
             'job_name' => $this->jobName,
             'status' => self::STATUS_ERROR,
@@ -211,7 +211,7 @@ class CronJob
      */
     public function setOutput($output)
     {
-        $this->resourceConnection->getConnection()->insertOnDuplicate('creatuity_cron', [
+        $this->resourceConnection->getConnection()->insertOnDuplicate('fsw_cron', [
             'group_id' => $this->groupId,
             'job_name' => $this->jobName,
             'output' => $output

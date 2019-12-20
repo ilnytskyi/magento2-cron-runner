@@ -1,8 +1,5 @@
 <?php
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
-namespace Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit;
+namespace Fsw\CronRunner\Block\Adminhtml\Jobs\Edit;
 
 class Form extends \Magento\Backend\Block\Widget\Form\Generic
 {
@@ -14,7 +11,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     protected function _construct()
     {
         parent::_construct();
-        $this->setId('creatuity_jobs_form');
+        $this->setId('fsw_jobs_form');
         $this->setTitle(__('Item Information'));
     }
 
@@ -30,7 +27,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             [
                 'data' => [
                     'id' => 'edit_form',
-                    'action' => $this->getUrl('creatuity_cron/jobs/save'),
+                    'action' => $this->getUrl('fsw_cron/jobs/save'),
                     'method' => 'post',
                 ],
             ]

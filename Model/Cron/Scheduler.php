@@ -1,14 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fwawrzak
- * Date: 6/22/18
- * @license http://creatuity.com/license
- * @copyright Copyright (c) 2008-2017 Creatuity Corp. (http://www.creatuity.com)
- */
 
-namespace Creatuity\CronRunner\Model\Cron;
-
+namespace Fsw\CronRunner\Model\Cron;
 
 class Scheduler
 {

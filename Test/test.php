@@ -3,7 +3,7 @@
 require_once '../Model/Cron/Scheduler.php';
 
 
-$scheduler =  new \Creatuity\CronRunner\Model\Cron\Scheduler();
+$scheduler =  new \Fsw\CronRunner\Model\Cron\Scheduler();
 
 
 function testRunBetween($expr, $from, $to, $expected) {

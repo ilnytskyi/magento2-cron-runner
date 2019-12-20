@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
--->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
 	<menu>
-		<add id="Creatuity_CronRunner::cron_manager" title="Manage Cron Jobs" module="Creatuity_CronRunner" sortOrder="200" parent="Magento_Backend::system_tools" action="creatuity_cron/jobs/" resource="Creatuity_CronRunner::cron_manager"/>
+		<add id="Fsw_CronRunner::cron_manager" title="Manage Cron Jobs" module="Fsw_CronRunner" sortOrder="200" parent="Magento_Backend::system_tools" action="fsw_cron/jobs/" resource="Fsw_CronRunner::cron_manager"/>
 	</menu>
 </config>

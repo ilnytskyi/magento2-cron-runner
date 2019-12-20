@@ -1,14 +1,10 @@
 <?php
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
-
 // @codingStandardsIgnoreFile
 
-namespace Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit\Tab;
+namespace Fsw\CronRunner\Block\Adminhtml\Jobs\Edit\Tab;
 
 
-use Creatuity\CronRunner\Model\Jobs;
+use Fsw\CronRunner\Model\Jobs;
 use Magento\Backend\Block\Widget\Form\Generic;
 use Magento\Backend\Block\Widget\Tab\TabInterface;
 
@@ -53,6 +49,6 @@ class Main extends Generic implements TabInterface
      */
     public function getJob()
     {
-        return $this->_coreRegistry->registry('current_creatuity_cron_jobs');
+        return $this->_coreRegistry->registry('current_fsw_cron_jobs');
     }
 }

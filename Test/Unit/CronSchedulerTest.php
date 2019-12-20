@@ -1,8 +1,8 @@
 <?php
 
-namespace Creatuity\CronRunner\Test\Unit;
+namespace Fsw\CronRunner\Test\Unit;
 
-use Creatuity\CronRunner\Model\Cron\Scheduler;
+use Fsw\CronRunner\Model\Cron\Scheduler;
 
 class CronSchedulerTest extends \PHPUnit\Framework\TestCase
 {

@@ -1,8 +1,5 @@
 <?php
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
-namespace Creatuity\CronRunner\Block\Adminhtml\Jobs;
+namespace Fsw\CronRunner\Block\Adminhtml\Jobs;
 
 class Edit extends \Magento\Backend\Block\Widget\Form\Container
 {
@@ -38,7 +35,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
     {
         $this->_objectId = 'id';
         $this->_controller = 'adminhtml_jobs';
-        $this->_blockGroup = 'Creatuity_CronRunner';
+        $this->_blockGroup = 'Fsw_CronRunner';
 
         parent::_construct();
 
@@ -79,7 +76,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
      */
     public function getHeaderText()
     {
-        $job = $this->_coreRegistry->registry('current_creatuity_cron_jobs');
+        $job = $this->_coreRegistry->registry('current_fsw_cron_jobs');
         if ($job->getId()) {
             return __("Edit Item '%1'", $this->escapeHtml($job->getName()));
         } else {

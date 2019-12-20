@@ -1,6 +1,6 @@
 <?php
 
-namespace Creatuity\CronRunner\Model;
+namespace Fsw\CronRunner\Model;
 
 
 use Magento\Framework\App\ResourceConnection;
@@ -26,7 +26,7 @@ class CronRepository
     public function getExecutionQueue()
     {
         $connection = $this->resourceConnection->getConnection();
-        $ret = $connection->fetchCol($connection->select()->from('creatuity_cron', [new \Zend_Db_Expr('CONCAT(group_id, ".", job_name)')])->order('started_at'));
+        $ret = $connection->fetchCol($connection->select()->from('fsw_cron', [new \Zend_Db_Expr('CONCAT(group_id, ".", job_name)')])->order('started_at'));
         $this->resourceConnection->closeConnection();
         return $ret;
     }

@@ -1,9 +1,6 @@
 <?php
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
 
-namespace Creatuity\CronRunner\Model\Resource;
+namespace Fsw\CronRunner\Model\Resource;
 
 class Jobs extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
@@ -14,6 +11,6 @@ class Jobs extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _construct()
     {
-        $this->_init('creatuity_cron', 'id');
+        $this->_init('fsw_cron', 'id');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Creatuity\CronRunner\Setup;
+namespace Fsw\CronRunner\Setup;
 
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\DB\Ddl\Table;
@@ -18,7 +18,7 @@ class InstallSchema implements InstallSchemaInterface
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
-        $tableName = $setup->getTable('creatuity_cron');
+        $tableName = $setup->getTable('fsw_cron');
 
         $table = $setup->getConnection()->newTable($tableName);
 

@@ -1,17 +1,14 @@
 <?php
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
 
-namespace Creatuity\CronRunner\Controller\Adminhtml\Jobs;
+namespace Fsw\CronRunner\Controller\Adminhtml\Jobs;
 
-class Save extends \Creatuity\CronRunner\Controller\Adminhtml\Jobs
+class Save extends \Fsw\CronRunner\Controller\Adminhtml\Jobs
 {
     public function execute()
     {
         if ($this->getRequest()->getPostValue()) {
             try {
-                $model = $this->_objectManager->create('Creatuity\CronRunner\Model\Jobs');
+                $model = $this->_objectManager->create('Fsw\CronRunner\Model\Jobs');
                 $data = $this->getRequest()->getPostValue();
                 $inputFilter = new \Zend_Filter_Input(
                     [],
@@ -44,18 +41,18 @@ class Save extends \Creatuity\CronRunner\Controller\Adminhtml\Jobs
                 }
                 $session->setPageData(false);
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('creatuity_cron/*/edit', ['id' => $model->getId()]);
+                    $this->_redirect('fsw_cron/*/edit', ['id' => $model->getId()]);
                     return;
                 }
-                $this->_redirect('creatuity_cron/*/');
+                $this->_redirect('fsw_cron/*/');
                 return;
             } catch (\Magento\Framework\Exception\LocalizedException $e) {
                 $this->messageManager->addError($e->getMessage());
                 $id = (int)$this->getRequest()->getParam('id');
                 if (!empty($id)) {
-                    $this->_redirect('creatuity_cron/*/edit', ['id' => $id]);
+                    $this->_redirect('fsw_cron/*/edit', ['id' => $id]);
                 } else {
-                    $this->_redirect('creatuity_cron/*/new');
+                    $this->_redirect('fsw_cron/*/new');
                 }
                 return;
             } catch (\Exception $e) {
@@ -64,10 +61,10 @@ class Save extends \Creatuity\CronRunner\Controller\Adminhtml\Jobs
                 );
                 $this->_objectManager->get('Psr\Log\LoggerInterface')->critical($e);
                 $this->_objectManager->get('Magento\Backend\Model\Session')->setPageData($data);
-                $this->_redirect('creatuity_cron/*/edit', ['id' => $this->getRequest()->getParam('id')]);
+                $this->_redirect('fsw_cron/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }
-        $this->_redirect('creatuity_cron/*/');
+        $this->_redirect('fsw_cron/*/');
     }
 }

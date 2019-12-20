@@ -1,13 +1,8 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
--->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="admin">
-        <route id="creatuity_cron" frontName="creatuity_cron">
-            <module name="Creatuity_CronRunner" />
+        <route id="fsw_cron" frontName="fsw_cron">
+            <module name="Fsw_CronRunner" />
         </route>
     </router>
 </config>

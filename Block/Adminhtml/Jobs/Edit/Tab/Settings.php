@@ -1,6 +1,6 @@
 <?php
 
-namespace Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit\Tab;
+namespace Fsw\CronRunner\Block\Adminhtml\Jobs\Edit\Tab;
 
 use Magento\Backend\Block\Widget\Form\Generic;
 use Magento\Backend\Block\Widget\Tab\TabInterface;
@@ -49,7 +49,7 @@ class Settings extends Generic implements TabInterface
      */
     protected function _prepareForm()
     {
-        $model = $this->_coreRegistry->registry('current_creatuity_cron_jobs');
+        $model = $this->_coreRegistry->registry('current_fsw_cron_jobs');
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
         $form->setHtmlIdPrefix('job_');

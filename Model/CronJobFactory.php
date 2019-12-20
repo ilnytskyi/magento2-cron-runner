@@ -1,6 +1,6 @@
 <?php
 
-namespace Creatuity\CronRunner\Model;
+namespace Fsw\CronRunner\Model;
 
 
 use Magento\Framework\ObjectManagerInterface;

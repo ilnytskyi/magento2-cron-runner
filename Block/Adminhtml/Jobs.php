@@ -1,8 +1,5 @@
 <?php
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
-namespace Creatuity\CronRunner\Block\Adminhtml;
+namespace Fsw\CronRunner\Block\Adminhtml;
 
 class Jobs extends \Magento\Backend\Block\Widget\Grid\Container
 {

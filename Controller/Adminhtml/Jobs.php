@@ -1,9 +1,6 @@
 <?php
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
 
-namespace Creatuity\CronRunner\Controller\Adminhtml;
+namespace Fsw\CronRunner\Controller\Adminhtml;
 
 /**
  * Jobs controller
@@ -55,7 +52,7 @@ abstract class Jobs extends \Magento\Backend\App\Action
     protected function _initAction()
     {
         $this->_view->loadLayout();
-        $this->_setActiveMenu('Creatuity_CronRunner::jobs')->_addBreadcrumb(__('Jobs'), __('Jobs'));
+        $this->_setActiveMenu('Fsw_CronRunner::jobs')->_addBreadcrumb(__('Jobs'), __('Jobs'));
         return $this;
     }
 
@@ -66,6 +63,6 @@ abstract class Jobs extends \Magento\Backend\App\Action
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Creatuity_CronRunner::jobs');
+        return $this->_authorization->isAllowed('Fsw_CronRunner::jobs');
     }
 }

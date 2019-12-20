@@ -1,30 +1,25 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © 2015 Creatuity. All rights reserved.
- */
--->
 
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="left">
-            <block class="Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit\Tabs" name="creatuity_cron_jobs_edit_tabs">
+            <block class="Fsw\CronRunner\Block\Adminhtml\Jobs\Edit\Tabs" name="fsw_cron_jobs_edit_tabs">
 
-                <block class="Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit\Tab\Main" name="creatuity_cron_jobs_edit_tab_main" template="Creatuity_CronRunner::job-details.phtml"/>
+                <block class="Fsw\CronRunner\Block\Adminhtml\Jobs\Edit\Tab\Main" name="fsw_cron_jobs_edit_tab_main" template="Fsw_CronRunner::job-details.phtml"/>
 
                 <action method="addTab">
                     <argument name="name" xsi:type="string">main_section</argument>
-                    <argument name="block" xsi:type="string">creatuity_cron_jobs_edit_tab_main</argument>
+                    <argument name="block" xsi:type="string">fsw_cron_jobs_edit_tab_main</argument>
                 </action>
-                <block class="Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit\Tab\Settings" name="creatuity_cron_jobs_edit_tab_settings"/>
+                <block class="Fsw\CronRunner\Block\Adminhtml\Jobs\Edit\Tab\Settings" name="fsw_cron_jobs_edit_tab_settings"/>
                 <action method="addTab">
                     <argument name="name" xsi:type="string">settings_section</argument>
-                    <argument name="block" xsi:type="string">creatuity_cron_jobs_edit_tab_settings</argument>
+                    <argument name="block" xsi:type="string">fsw_cron_jobs_edit_tab_settings</argument>
                 </action>
             </block>
         </referenceContainer>
         <referenceContainer name="content">
-            <block class="Creatuity\CronRunner\Block\Adminhtml\Jobs\Edit" name="cron_jobs_edit"/>
+            <block class="Fsw\CronRunner\Block\Adminhtml\Jobs\Edit" name="cron_jobs_edit"/>
         </referenceContainer>
     </body>
 </page>

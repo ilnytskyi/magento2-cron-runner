@@ -1,10 +1,10 @@
 <?php
 
-namespace Creatuity\CronRunner\Console;
+namespace Fsw\CronRunner\Console;
 
-use Creatuity\CronRunner\Model\CronJobFactory;
-use Creatuity\CronRunner\Model\CronRepository;
-use Creatuity\CronRunner\Model\CronJob;
+use Fsw\CronRunner\Model\CronJobFactory;
+use Fsw\CronRunner\Model\CronRepository;
+use Fsw\CronRunner\Model\CronJob;
 use Magento\Cron\Model\ConfigInterface;
 use Magento\Cron\Model\Schedule;
 use Magento\Framework\App\AreaList;
@@ -68,7 +68,7 @@ class Run extends Command
 
     protected function configure()
     {
-        $this->setName('creatuity:cron:run')
+        $this->setName('fsw:cron:run')
             ->addOption('group', null, InputOption::VALUE_OPTIONAL, 'Group id, if set will run only jobs from this group')
             ->addOption('job', null, InputOption::VALUE_OPTIONAL, 'Job name, use this to force given job')
             ->setDescription('Alternative, simplified cron manager');

@@ -1,8 +1,8 @@
 <?php
 
-namespace Creatuity\CronRunner\Block\Adminhtml;
+namespace Fsw\CronRunner\Block\Adminhtml;
 
-use Creatuity\CronRunner\Model\Jobs;
+use Fsw\CronRunner\Model\Jobs;
 use Magento\Backend\Block\Widget\Grid\ColumnSet;
 
 class JobsColumns extends ColumnSet
