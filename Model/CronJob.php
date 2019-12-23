@@ -81,7 +81,7 @@ class CronJob
                 ->where('job_name = ?', $this->jobName));
             $this->resourceConnection->closeConnection();
         }
-        return empty($this->row[$field]) ? null : $this->row[$field];
+        return isset($this->row[$field]) ? $this->row[$field] : null;
     }
 
     /**
