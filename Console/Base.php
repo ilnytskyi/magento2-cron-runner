@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Run extends Command
+abstract class Base extends Command
 {
     const SPAWN_CHILD_LIMIT = 16;
 
@@ -66,67 +66,23 @@ class Run extends Command
 		$this->config = $config;
 	}
 
-    protected function configure()
-    {
-        $this->setName('fsw:cron:run')
-            ->addOption('group', null, InputOption::VALUE_OPTIONAL, 'Group id, if set will run only jobs from this group')
-            ->addOption('job', null, InputOption::VALUE_OPTIONAL, 'Job name, use this to force given job')
-            ->setDescription('Alternative, simplified cron manager');
-    }
-
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int|null|void
-     * @throws \Exception
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $this->setAreaCode();
-
-        $jobs = $this->getJobsToRun($input->getOption('group'), $input->getOption('job'));
-
-        foreach ($jobs as $job) {
-            if ($this->spawnChild($job)) {
-                $this->executeJob($job);
-                return;
-            }
-        }
-
-        $this->waitForAllChildren();
-    }
-
     /**
      * @param $paramGroupId
      * @param $paramJobName
      * @return array|CronJob[]
      * @throws \Exception
      */
-    protected function getJobsToRun($paramGroupId, $paramJobName)
+    protected function getJobsToRun()
     {
         $groups = $this->config->getJobs();
-
-        if ($paramGroupId !== null && !isset($groups[$paramGroupId])) {
-            throw new \Exception('unknown group id');
-        }
-        if ($paramJobName !== null && !isset($groups[$paramGroupId][$paramJobName])) {
-            throw new \Exception('unknown job name');
-        }
-
         $queue = $this->cronRepository->getExecutionQueue();
         /** @var CronJob[] $jobs */
         $jobs = [];
         foreach ($groups as $groupId => $group) {
-            if ($paramGroupId !== null && $paramGroupId !== $groupId) {
-                continue;
-            }
             foreach ($group as $jobName => $job) {
-                if ($paramJobName !== null && $paramJobName !== $jobName) {
-                    continue;
-                }
                 $cronJob = $this->cronJobFactory->create($groupId, $jobName, $job, array_search($groupId . '.' . $jobName , $queue));
                 if ($cronJob->isValid()) {
-                    if ($paramJobName !== null || $cronJob->shouldBeExecuted(new \DateTime())) {
+                    if ($cronJob->shouldBeExecuted(new \DateTime())) {
                         $jobs[] = $cronJob;
                     }
                 }
@@ -166,7 +122,7 @@ class Run extends Command
     }
 
     /**
-     *
+     * @throws \Exception
      */
     protected function waitForAllChildren()
     {

@@ -5,9 +5,15 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="fsw:cron:run" xsi:type="object">Fsw\CronRunner\Console\Run</item>
+                <item name="fsw:cron:run" xsi:type="object">Fsw\CronRunner\Console\RunAll</item>
+                <item name="fsw:cron:execute" xsi:type="object">Fsw\CronRunner\Console\Execute</item>
+                <item name="fsw:cron:list" xsi:type="object">Fsw\CronRunner\Console\ListJobs</item>
             </argument>
         </arguments>
+    </type>
+
+    <type name="Magento\Framework\App\Cron">
+        <plugin name="fsw_replace_cron_runner" type="Fsw\CronRunner\Plugin\CronPlugin" />
     </type>
 
 </config>
