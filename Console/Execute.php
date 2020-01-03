@@ -40,6 +40,7 @@ class Execute extends Base
         $cronJob = $this->cronJobFactory->create($groupId, $jobName, $groups[$groupId][$jobName], 0);
 
         $this->setAreaCode();
-        $this->executeJob($cronJob);
+
+        $this->executeSingeJob($cronJob);
     }
 }

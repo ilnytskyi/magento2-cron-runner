@@ -100,7 +100,7 @@ class CronJob
             } else {
                 //marking previous job as finished
                 $this->setError('Seems that PID ' . $pid . ' has been killed.');
-                $this->markAsFinished($this->getRowData('pid'), 1, 0, 0);
+                $this->markAsFinished($this->getRowData('pid'), 1, null);
                 return new DateTime($this->getRowData('started_at'));
             }
         } else {
@@ -174,9 +174,15 @@ class CronJob
      * @param $pid
      * @param $return_code
      */
-    public function markAsFinished($pid, $return_code, $time_ms, $mem_kb)
+    public function markAsFinished($pid, $return_code, $rusage)
     {
         $ok = ($return_code == 0);
+        $time_ms = 0;
+        isset($rusage["ru_utime.tv_sec"]) && $time_ms += $rusage["ru_utime.tv_sec"] * 1000;
+        isset($rusage["ru_utime.tv_usec"]) && $time_ms += (int)($rusage["ru_utime.tv_usec"] / 1000);
+        isset($rusage["ru_stime.tv_sec"]) && $time_ms += $rusage["ru_stime.tv_sec"] * 1000;
+        isset($rusage["ru_stime.tv_usec"]) && $time_ms += (int)($rusage["ru_stime.tv_usec"] / 1000);
+        $mem_kb = empty($rusage['ru_maxrss']) ? 0 : $rusage['ru_maxrss'];
         $time_ms = (int)$time_ms;
         $mem_kb = (int)$mem_kb;
 
@@ -231,7 +237,6 @@ class CronJob
     /**
      * @param DateTime $at
      * @return bool
-     * @throws \Exception
      */
     public function shouldBeExecuted(DateTime $at)
     {

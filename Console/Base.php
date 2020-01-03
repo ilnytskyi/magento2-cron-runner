@@ -67,10 +67,7 @@ abstract class Base extends Command
 	}
 
     /**
-     * @param $paramGroupId
-     * @param $paramJobName
      * @return array|CronJob[]
-     * @throws \Exception
      */
     protected function getJobsToRun()
     {
@@ -131,25 +128,29 @@ abstract class Base extends Command
             if ($pid == -1) {
                 throw new \Exception('critical');
             }
-            $time = 0;
-            isset($rusage["ru_utime.tv_sec"]) && $time += $rusage["ru_utime.tv_sec"] * 1000;
-            isset($rusage["ru_utime.tv_usec"]) && $time += (int)($rusage["ru_utime.tv_usec"] / 1000);
-            isset($rusage["ru_stime.tv_sec"]) && $time += $rusage["ru_stime.tv_sec"] * 1000;
-            isset($rusage["ru_stime.tv_usec"]) && $time += (int)($rusage["ru_stime.tv_usec"] / 1000);
-            $mem = empty($rusage['ru_maxrss']) ? 0 : $rusage['ru_maxrss'];
 
             $this->jobs[$pid]->markAsFinished(
                 $pid,
                 pcntl_wifexited($status) ? pcntl_wexitstatus($status) : -1,
-                $time,
-                $mem
+                $rusage
             );
             unset($this->jobs[$pid]);
         }
     }
 
     /**
+     * @param CronJob $job
+     */
+    public function executeSingeJob(CronJob $job)
+    {
+        $job->markAsStarted(getmypid());
+        $ret = $this->executeJob($job);
+        $job->markAsFinished(getmypid(), $ret, getrusage());
+    }
+
+    /**
      * @param $job CronJob
+     * @return int
      */
     protected function executeJob($job)
     {
@@ -176,7 +177,7 @@ abstract class Base extends Command
             $ret = 1;
         }
         ob_end_flush();
-        exit ($ret);
+        return $ret;
     }
 
 }

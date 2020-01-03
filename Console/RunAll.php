@@ -32,11 +32,15 @@ class RunAll extends Base
         $this->setAreaCode();
         $jobs = $this->getJobsToRun();
         foreach ($jobs as $job) {
+            if (!function_exists('pcntl_fork')) {
+                //run single job if no pcntl module installed
+                return $this->executeSingeJob($job);
+            }
             if ($this->spawnChild($job)) {
-                $this->executeJob($job);
-                return;
+                exit($this->executeJob($job));
             }
         }
         $this->waitForAllChildren();
     }
+
 }
