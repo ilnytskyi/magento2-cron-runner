@@ -141,10 +141,10 @@ abstract class Base extends Command
     /**
      * @param CronJob $job
      */
-    public function executeSingeJob(CronJob $job)
+    public function executeSingeJob(CronJob $job, $silent = true)
     {
         $job->markAsStarted(getmypid());
-        $ret = $this->executeJob($job);
+        $ret = $this->executeJob($job, $silent);
         $job->markAsFinished(getmypid(), $ret, getrusage());
     }
 
@@ -152,32 +152,62 @@ abstract class Base extends Command
      * @param $job CronJob
      * @return int
      */
-    protected function executeJob($job)
+    protected function executeJob($job, $silent = true)
     {
-        if ($limit = $job->getMemoryLimit()) {
-            ini_set('memory_limit', $limit . 'M');
-        }
-
-        if ($limit = $job->getTimeLimit()) {
-            set_time_limit($limit);
-        }
-
-        ob_start(function($string) use($job) {
-            if (!empty(trim($string))) {
-                $job->setOutput($string);
+        if ($silent) {
+            if ($limit = $job->getMemoryLimit()) {
+                ini_set('memory_limit', $limit . 'M');
             }
-            return "";
-        }, 2048);
+
+            if ($limit = $job->getTimeLimit()) {
+                set_time_limit($limit);
+            }
+
+            ob_start(function ($string) use ($job) {
+                if (!empty(trim($string))) {
+                    $job->setOutput($string);
+                }
+                return "";
+            }, 2048);
+        }
         $ret = 0;
         try {
             call_user_func([$this->objectManager->create($job->instance), $job->method], $this->_dummySchedule);
         } catch (\Throwable $e) {
+            $this->handleException($e);
             $job->setError($e->getMessage());
+            if (!$silent) echo $e->getMessage();
             //force process to return error:
             $ret = 1;
         }
-        ob_end_flush();
+        if ($silent) {
+            ob_end_flush();
+        }
         return $ret;
+    }
+
+    /**
+     * @param \Throwable $exception
+     */
+    public function handleException(\Throwable $exception)
+    {
+        //
+    }
+
+    /**
+     * @param OutputInterface $output
+     */
+    public function listValidJobs(OutputInterface $output)
+    {
+        $groups = $this->config->getJobs();
+        foreach ($groups as $groupId => $group) {
+            foreach ($group as $jobName => $job) {
+                $cronJob = $this->cronJobFactory->create($groupId, $jobName, $job, 0);
+                if ($cronJob->isValid()) {
+                    $output->writeln("$groupId $jobName");
+                }
+            }
+        }
     }
 
 }

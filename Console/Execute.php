@@ -11,8 +11,8 @@ class Execute extends Base
     protected function configure()
     {
         $this->setName('fsw:cron:execute')
-            ->addOption('group', null, InputOption::VALUE_REQUIRED, 'Group id, if set will run only jobs from this group')
-            ->addOption('job', null, InputOption::VALUE_REQUIRED, 'Job name, use this to force given job')
+            ->addArgument('group', null, 'Group id')
+            ->addArgument('job', null, 'Job name')
             ->setDescription('Execute single cron task synchronously');
     }
 
@@ -24,23 +24,21 @@ class Execute extends Base
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $groupId = $input->getOption('group');
-        $jobName = $input->getOption('job');
+        $groupId = $input->getArgument('group');
+        $jobName = $input->getArgument('job');
 
         $groups = $this->config->getJobs();
 
-        if (!isset($groups[$groupId])) {
-            throw new \Exception('unknown group id. use fsw:cron:list to see available options');
-        }
-
-        if (!isset($groups[$groupId][$jobName])) {
-            throw new \Exception('unknown job name. use fsw:cron:list to see available options');
+        if (!isset($groups[$groupId]) || !isset($groups[$groupId][$jobName])) {
+            $output->writeln("unknown job. please use one of:");
+            $this->listValidJobs($output);
+            throw new \Exception('unknown job.');
         }
 
         $cronJob = $this->cronJobFactory->create($groupId, $jobName, $groups[$groupId][$jobName], 0);
 
         $this->setAreaCode();
 
-        $this->executeSingeJob($cronJob);
+        $this->executeSingeJob($cronJob, false);
     }
 }

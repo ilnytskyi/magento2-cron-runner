@@ -161,9 +161,9 @@ class CronJob
             'pid' => $pid,
             'status' => new Expression('"' . self::STATUS_RUNNING . '"'),
             'started_at' => new Expression('"' . (new DateTime())->format("Y-m-d H:i:s") . '"'),
-            'finished_at' => null,
-            'error' => null,
-            'output' => null,
+            'finished_at' => new Expression('NULL'),
+            'error' => new Expression('NULL'),
+            'output' => new Expression('NULL'),
             'stats_started' => new Expression('stats_started + 1'),
             'force_run_flag' => 0
         ]);

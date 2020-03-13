@@ -21,14 +21,6 @@ class ListJobs extends Base
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $groups = $this->config->getJobs();
-        foreach ($groups as $groupId => $group) {
-            foreach ($group as $jobName => $job) {
-                $cronJob = $this->cronJobFactory->create($groupId, $jobName, $job, 0);
-                if ($cronJob->isValid()) {
-                    $output->writeln("$groupId $jobName");
-                }
-            }
-        }
+        $this->listValidJobs($output);
     }
 }
