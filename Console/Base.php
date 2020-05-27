@@ -204,7 +204,7 @@ abstract class Base extends Command
             foreach ($group as $jobName => $job) {
                 $cronJob = $this->cronJobFactory->create($groupId, $jobName, $job, 0);
                 if ($cronJob->isValid()) {
-                    $output->writeln("$groupId $jobName");
+                    $output->writeln("$groupId $jobName [{$cronJob->getEffectiveSchedule()}]");
                 }
             }
         }

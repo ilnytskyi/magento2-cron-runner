@@ -78,6 +78,11 @@ class Settings extends Generic implements TabInterface
             'text',
             ['name' => 'setting_timelimit', 'label' => __('Time Limit (s)'), 'title' => __('Time Limit')]
         );
+        $fieldset->addField(
+            'setting_schedule',
+            'text',
+            ['name' => 'setting_schedule', 'label' => __('Schedule Override'), 'title' => __('Schedule Override')]
+        );
 
         $form->setValues($model->getData());
         $form->getElement('setting_enabled')->setIsChecked(!empty($model->getData('setting_enabled')));

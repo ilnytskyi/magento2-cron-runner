@@ -141,6 +141,15 @@ class CronJob
     }
 
     /**
+     * @return string
+     */
+    public function getEffectiveSchedule()
+    {
+        return $this->getRowData('setting_schedule') ?: $this->schedule;
+    }
+
+
+    /**
      * @param $pid
      */
     public function markAsStarted($pid)
@@ -255,7 +264,7 @@ class CronJob
         }
 
         try {
-            return $this->scheduler->shouldRunBetweenDates($this->schedule, $lastStart, $at);
+            return $this->scheduler->shouldRunBetweenDates($this->getEffectiveSchedule(), $lastStart, $at);
         } catch (\Exception $e) {
             $this->setError($e->getMessage());
             return false;

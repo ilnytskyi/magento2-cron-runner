@@ -38,6 +38,12 @@
                                 <argument name="index" xsi:type="string">schedule</argument>
                             </arguments>
                         </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="setting_schedule">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Schedule Override</argument>
+                                <argument name="index" xsi:type="string">setting_schedule</argument>
+                            </arguments>
+                        </block>
                         <block class="Magento\Backend\Block\Widget\Grid\Column" as="started_at">
                             <arguments>
                                 <argument name="header" xsi:type="string" translate="true">Last Start</argument>

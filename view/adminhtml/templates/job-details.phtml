@@ -23,11 +23,17 @@
         </div>
 
         <div class="admin__field field">
-            <label class="label admin__field-label"><span>Schedule</span></label>
+            <label class="label admin__field-label"><span>Effective Schedule</span></label>
             <div class="admin__field-control control">
                 <div class=" input-text admin__control-text">
-                    &nbsp;<?php echo $block->getJob()->getSchedule(); ?>
+                    <?php echo $block->getJob()->getSettingSchedule() ?: $block->getJob()->getSchedule(); ?>
                 </div>
+                <p class="note">
+                    <span>
+                        Default system value: <?php echo $block->getJob()->getSchedule(); ?>.
+                        This can be edited in settings
+                    </span>
+                </p>
             </div>
         </div>
     </fieldset>
