@@ -79,7 +79,7 @@ abstract class Base extends Command
             foreach ($group as $jobName => $job) {
                 $cronJob = $this->cronJobFactory->create($groupId, $jobName, $job, array_search($groupId . '.' . $jobName , $queue));
                 if ($cronJob->isValid()) {
-                    if ($cronJob->shouldBeExecuted(new \DateTime())) {
+                    if ($cronJob->shouldBeExecuted(new \DateTime('now', new \DateTimeZone('GMT')))) {
                         $jobs[] = $cronJob;
                     }
                 }

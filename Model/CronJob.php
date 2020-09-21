@@ -96,15 +96,15 @@ class CronJob
         } else if ($status == self::STATUS_RUNNING) {
             $pid = $this->getRowData('pid');
             if (file_exists( '/proc/' . $pid )) {
-                return new DateTime();
+                return new DateTime('now', new \DateTimeZone('GMT'));
             } else {
                 //marking previous job as finished
                 $this->setError('Seems that PID ' . $pid . ' has been killed.');
                 $this->markAsFinished($this->getRowData('pid'), 1, null);
-                return new DateTime($this->getRowData('started_at'));
+                return new DateTime($this->getRowData('started_at'), new \DateTimeZone('GMT'));
             }
         } else {
-            return new DateTime($this->getRowData('started_at'));
+            return new DateTime($this->getRowData('started_at'), new \DateTimeZone('GMT'));
         }
     }
 
@@ -160,7 +160,7 @@ class CronJob
             'schedule' => $this->schedule,
             'pid' => $pid,
             'status' => self::STATUS_RUNNING,
-            'started_at' => (new DateTime())->format("Y-m-d H:i:s"),
+            'started_at' => (new DateTime('now', new \DateTimeZone('GMT')))->format("Y-m-d H:i:s"),
             'finished_at' => null,
             'error' => null,
             'output' => null,
@@ -169,7 +169,7 @@ class CronJob
             'schedule' => new Expression('"' .$this->schedule . '"'),
             'pid' => $pid,
             'status' => new Expression('"' . self::STATUS_RUNNING . '"'),
-            'started_at' => new Expression('"' . (new DateTime())->format("Y-m-d H:i:s") . '"'),
+            'started_at' => new Expression('"' . (new DateTime('now', new \DateTimeZone('GMT')))->format("Y-m-d H:i:s") . '"'),
             'finished_at' => new Expression('NULL'),
             'error' => new Expression('NULL'),
             'output' => new Expression('NULL'),
@@ -195,7 +195,7 @@ class CronJob
         $time_ms = (int)$time_ms;
         $mem_kb = (int)$mem_kb;
 
-        $now = (new DateTime())->format("Y-m-d H:i:s");
+        $now = (new DateTime('now',new \DateTimeZone('GMT')))->format("Y-m-d H:i:s");
         $this->resourceConnection->getConnection()->update('fsw_cron', [
             'status' => $ok ? self::STATUS_IDLE : self::STATUS_ERROR,
             'return_code' => $return_code,

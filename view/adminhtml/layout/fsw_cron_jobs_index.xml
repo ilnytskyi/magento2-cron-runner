@@ -46,12 +46,14 @@
                         </block>
                         <block class="Magento\Backend\Block\Widget\Grid\Column" as="started_at">
                             <arguments>
+                                <argument name="type" xsi:type="string">datetime</argument>
                                 <argument name="header" xsi:type="string" translate="true">Last Start</argument>
                                 <argument name="index" xsi:type="string">started_at</argument>
                             </arguments>
                         </block>
                         <block class="Magento\Backend\Block\Widget\Grid\Column" as="finished_at">
                             <arguments>
+                                <argument name="type" xsi:type="string">datetime</argument>
                                 <argument name="header" xsi:type="string" translate="true">Last Finish</argument>
                                 <argument name="index" xsi:type="string">finished_at</argument>
                             </arguments>
