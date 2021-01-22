@@ -20,5 +20,35 @@ This module introduces another way of scheduling and executing cron jobs. Instea
 
 ### Admin Panel
 
+![index screenshot](/doc/ap_crons_index.png?raw=true "Admin Panel - Cron Jobs Index")
+![details screenshot](/doc/ap_cron_edit.png?raw=true "Admin Panel - Edit Cron Job")
 
 ### CLI
+
+Module also adds usable CLI commands to work with cron jobs:
+
+```
+bin/magento fsw:cron:list
+```
+List all available cron gropus and jobs.
+
+```
+bin/magento fsw:cron:execute GROUP JOB                         
+```
+Execute single cron task synchronously. 
+Task output and errors will be printed to stdout. 
+Useful for debugging.
+
+```
+bin/magento fsw:cron:run
+```
+
+Cron jobs executor. 
+This command is automaticially plugged with DI to replace `bin/magento cron:run` 
+you will need it only in case of advanced problems with di.
+
+
+
+
+
+
