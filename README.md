@@ -20,7 +20,21 @@ This module introduces another way of scheduling and executing cron jobs. Instea
 
 ### Admin Panel
 
+You should see a simple management view under `System` > `Tools` > `Manage Cron Jobs`.
+
 ![index screenshot](/doc/ap_crons_index.png?raw=true "Admin Panel - Cron Jobs Index")
+
+With this panel you can:
+
+- See all cron jobs and their status (OK, RUNNING, DISABLED, ERROR)
+- See details about job last execution (output/errors/duration etc.)
+- See simple statistics for a job (how many times it started, failed, avarage memory use etc.)
+- Configure a cron job and:
+  - enable / disable it
+  - override its cron expresion (5 5 * * *)
+  - limit its execution time / memory
+* Force a single cron jub to be executed now.
+
 ![details screenshot](/doc/ap_cron_edit.png?raw=true "Admin Panel - Edit Cron Job")
 
 ### CLI
