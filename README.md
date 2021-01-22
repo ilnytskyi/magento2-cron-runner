@@ -6,11 +6,11 @@ Alternative cron runner for magento that aims for simplicity and handling large 
 
 ## Installation
   
-  ```
-  composer require fsw2/magento2-cron-runner
-  php bin/magento module:enable Fsw_CronRunner
-  php bin/magento setup:upgrade   
-  ```
+```
+composer require fsw2/magento2-cron-runner
+php bin/magento module:enable Fsw_CronRunner
+php bin/magento setup:upgrade
+```
 
 ## Features
   
