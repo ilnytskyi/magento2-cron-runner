@@ -2,24 +2,30 @@
 
 namespace Fsw\CronRunner\Model;
 
-
+use Magento\Analytics\Model\Config\Backend\Enabled\SubscriptionHandler;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\ObjectManagerInterface;
 
 class CronJobFactory
 {
-
     /** @var ObjectManagerInterface */
     protected $objectManager;
+    /** @var ScopeConfigInterface */
+    protected $scopeConfig;
 
     /**
      * JobFactory constructor.
      * @param ObjectManagerInterface $objectManager
+     * @param ScopeConfigInterface $scopeConfig
      */
-	public function __construct(
-		ObjectManagerInterface $objectManager
-	) {
-		$this->objectManager = $objectManager;
-	}
+    public function __construct(
+        ObjectManagerInterface $objectManager,
+        ScopeConfigInterface $scopeConfig
+    )
+    {
+        $this->objectManager = $objectManager;
+        $this->scopeConfig = $scopeConfig;
+    }
 
     /**
      * @param $groupId
@@ -30,6 +36,13 @@ class CronJobFactory
      */
     function create($groupId, $jobName, $config, $priority)
     {
+        if (!isset($config['schedule']) && isset($config['config_path'])) {
+            $config['schedule'] = $this->scopeConfig->getValue(
+                $config['config_path'],
+                ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
+                0
+            );
+        }
         return $this->objectManager->create(CronJob::class, [
             'groupId' => $groupId,
             'jobName' => $jobName,

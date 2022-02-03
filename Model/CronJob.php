@@ -44,7 +44,7 @@ class CronJob
      */
     public function isValid()
     {
-        if (empty($this->schedule)) {
+        if (empty($this->getEffectiveSchedule())) {
             $this->setError('missing schedule');
             return false;
         }
@@ -104,7 +104,12 @@ class CronJob
                 return new DateTime($this->getRowData('started_at'), new \DateTimeZone('GMT'));
             }
         } else {
-            return new DateTime($this->getRowData('started_at'), new \DateTimeZone('GMT'));
+            $startedAt = $this->getRowData('started_at');
+            if ($startedAt === null) {
+                return null;
+            } else {
+                return new DateTime($startedAt, new \DateTimeZone('GMT'));
+            }
         }
     }
 
@@ -157,7 +162,7 @@ class CronJob
         $this->resourceConnection->getConnection()->insertOnDuplicate('fsw_cron', [
             'group_id' => $this->groupId,
             'job_name' => $this->jobName,
-            'schedule' => $this->schedule,
+            'schedule' => $this->schedule ?: '',
             'pid' => $pid,
             'status' => self::STATUS_RUNNING,
             'started_at' => (new DateTime('now', new \DateTimeZone('GMT')))->format("Y-m-d H:i:s"),
@@ -249,6 +254,7 @@ class CronJob
      */
     public function shouldBeExecuted(DateTime $at)
     {
+
         if ($this->getForceRunFlag()) {
             return true;
         }
