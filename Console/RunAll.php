@@ -36,8 +36,15 @@ class RunAll extends Base
                 //run single job if no pcntl module installed
                 return $this->executeSingeJob($job);
             }
-            if ($this->spawnChild($job)) {
-                exit($this->executeJob($job));
+            if ($job->isRunInSeparateThread()) {
+                if ($this->spawnChild($job)) {
+                    exit($this->executeJob($job));
+                }
+            }
+        }
+        foreach ($jobs as $job) {
+            if (!$job->isRunInSeparateThread()) {
+                $this->executeSingeJob($job);
             }
         }
         $this->waitForAllChildren();

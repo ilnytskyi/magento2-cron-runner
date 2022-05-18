@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="fsw_cron" resource="default" comment="Cron Jobs Settings and Statistics">
+        <column name="id" xsi:type="int" unsigned="true" nullable="false" identity="true"/>
+        <column name="group_id" xsi:type="varchar" nullable="false" length="255"/>
+        <column name="job_name" xsi:type="varchar" nullable="false" length="255"/>
+        <column name="status" xsi:type="varchar" nullable="false" length="255"/>
+        <column name="pid" xsi:type="int" nullable="true"/>
+        <column name="return_code" xsi:type="int" nullable="true"/>
+        <column name="started_at" xsi:type="timestamp" nullable="true"/>
+        <column name="finished_at" xsi:type="timestamp" nullable="true"/>
+        <column name="error" xsi:type="text" nullable="true"/>
+        <column name="force_run_flag" xsi:type="boolean" nullable="false" default="0" />
+        <column name="schedule" xsi:type="varchar" nullable="false" length="255" default=""/>
+        <column name="output" xsi:type="text" nullable="true"/>
+
+        <column name="stats_started" xsi:type="int" nullable="false" default="0"/>
+        <column name="stats_finished_error" xsi:type="int" nullable="false" default="0"/>
+        <column name="stats_finished_ok" xsi:type="int" nullable="false" default="0"/>
+        <column name="stats_last_duration" xsi:type="float" nullable="false"/>
+        <column name="stats_avg_duration" xsi:type="float" nullable="false"/>
+        <column name="stats_last_memory" xsi:type="float" nullable="false"/>
+        <column name="stats_avg_memory" xsi:type="float" nullable="false"/>
+
+        <column name="setting_enabled" xsi:type="boolean" nullable="false" default="1" />
+        <column name="setting_memorylimit" xsi:type="int" nullable="true"/>
+        <column name="setting_timelimit" xsi:type="int" nullable="true"/>
+        <column name="setting_schedule" xsi:type="varchar" nullable="true" length="255"/>
+        <column name="setting_separate_thread" xsi:type="boolean" nullable="false" default="1" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="FSW_CRON_GROUP_ID_JOB_NAME">
+            <column name="group_id"/>
+            <column name="job_name"/>
+        </constraint>
+    </table>
+</schema>

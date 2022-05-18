@@ -51,6 +51,7 @@ class Save extends \Fsw\CronRunner\Controller\Adminhtml\Jobs
                 } else {
                     $model->setData($data);
                     $model->setData('setting_enabled', !empty($data['setting_enabled']));
+                    $model->setData('setting_separate_thread', !empty($data['setting_separate_thread']));
 
                     $session->setPageData($model->getData());
 

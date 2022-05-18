@@ -1,7 +1,7 @@
 {
   "name": "fsw2/magento2-cron-runner",
   "description": "Magento 2 Cron Runner",
-  "version": "1.2.6",
+  "version": "1.3.0",
   "license": "BSD-2-Clause",
   "authors": [
     {

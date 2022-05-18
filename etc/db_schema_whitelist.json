@@ -1,0 +1,34 @@
+{
+    "fsw_cron": {
+        "column": {
+            "id": true,
+            "group_id": true,
+            "job_name": true,
+            "status": true,
+            "pid": true,
+            "return_code": true,
+            "started_at": true,
+            "finished_at": true,
+            "error": true,
+            "force_run_flag": true,
+            "schedule": true,
+            "output": true,
+            "stats_started": true,
+            "stats_finished_error": true,
+            "stats_finished_ok": true,
+            "stats_last_duration": true,
+            "stats_avg_duration": true,
+            "stats_last_memory": true,
+            "stats_avg_memory": true,
+            "setting_enabled": true,
+            "setting_memorylimit": true,
+            "setting_timelimit": true,
+            "setting_schedule": true,
+            "setting_separate_thread": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FSW_CRON_GROUP_ID_JOB_NAME": true
+        }
+    }
+}

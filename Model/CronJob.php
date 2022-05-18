@@ -122,6 +122,14 @@ class CronJob
     }
 
     /**
+     * @return bool
+     */
+    public function isRunInSeparateThread()
+    {
+        return $this->getRowData('setting_separate_thread') !== '0';
+    }
+
+    /**
      * @return int
      */
     public function getTimeLimit()

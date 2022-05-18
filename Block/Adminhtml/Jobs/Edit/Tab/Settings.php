@@ -69,6 +69,16 @@ class Settings extends Generic implements TabInterface
             ]
         );
         $fieldset->addField(
+            'setting_separate_thread',
+            'checkbox',
+            [
+                'name' => 'setting_separate_thread',
+                'label' => __('Run in separate thread'),
+                'title' => __('Run in separate thread'),
+                'onclick'   => 'this.value = this.checked ? 1 : 0;',
+            ]
+        );
+        $fieldset->addField(
             'setting_memorylimit',
             'text',
             ['name' => 'setting_memorylimit', 'label' => __('Memory Limit (MB)'), 'title' => __('Memory Limit')]
@@ -86,6 +96,7 @@ class Settings extends Generic implements TabInterface
 
         $form->setValues($model->getData());
         $form->getElement('setting_enabled')->setIsChecked(!empty($model->getData('setting_enabled')));
+        $form->getElement('setting_separate_thread')->setIsChecked(!empty($model->getData('setting_separate_thread')));
 
         $this->setForm($form);
         return parent::_prepareForm();
