@@ -37,14 +37,9 @@ class Jobs extends \Magento\Framework\Model\AbstractModel
     public function formatTime($key)
     {
         $ms = $this->getData($key);
-        $secs = floor($ms / 1000 % 60);
-        $mins = floor($ms / (60 * 1000) % 60);
-        $hours = floor($ms / (60 * 60 * 1000) % 60);
-        $ms = floor($ms % 1000);
+        $secs = $ms / 1000;
 
-        return  ($hours ? $hours . 'h ' : '') .
-                ($mins ? $mins . 'm ' : '') .
-                $secs . '.' . sprintf('%03d', $ms) . 's';
+        return round($secs, 4) . ' s';
     }
 
     public function formatMemory($key)
